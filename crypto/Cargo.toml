@@ -30,8 +30,8 @@ tiny-keccak = { version = "2.0.1", features = ["sha3"]}
 x25519-dalek = { git = "https://github.com/calibra/x25519-dalek.git", branch = "fiat", default-features = false }
 
 libra-crypto-derive = { path = "../crypto-derive", version = "0.1.0" }
-lcs = { path = "../../common/lcs", version = "0.1.0", package = "libra-canonical-serialization" }
-libra-nibble = { path = "../../common/nibble", version = "0.1.0" }
+lcs = { path = "../lcs", version = "0.1.0", package = "libra-canonical-serialization" }
+libra-nibble = { path = "../nibble", version = "0.1.0" }
 
 [dev-dependencies]
 bitvec = "0.17.3"

@@ -1,0 +1,10 @@
+[workspace]
+
+members = [
+    "jellyfish-merkle",
+    "crypto",
+    "crypto-derive",
+    "nibble",
+    "lcs",
+    "types",
+]

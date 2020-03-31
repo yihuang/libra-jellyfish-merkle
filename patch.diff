@@ -1,0 +1,104 @@
+commit 82296ba926b35eef8a60e31e89693d136d8b1a4b
+Author: yihuang <yi.codeplayer@gmail.com>
+Date:   Tue Mar 31 12:37:45 2020 +0800
+
+    build
+
+diff --git a/crypto/Cargo.toml b/crypto/Cargo.toml
+index 522a466..8bb87f1 100644
+--- a/crypto/Cargo.toml
++++ b/crypto/Cargo.toml
+@@ -30,8 +30,8 @@ tiny-keccak = { version = "2.0.1", features = ["sha3"]}
+ x25519-dalek = { git = "https://github.com/calibra/x25519-dalek.git", branch = "fiat", default-features = false }
+ 
+ libra-crypto-derive = { path = "../crypto-derive", version = "0.1.0" }
+-lcs = { path = "../../common/lcs", version = "0.1.0", package = "libra-canonical-serialization" }
+-libra-nibble = { path = "../../common/nibble", version = "0.1.0" }
++lcs = { path = "../lcs", version = "0.1.0", package = "libra-canonical-serialization" }
++libra-nibble = { path = "../nibble", version = "0.1.0" }
+ 
+ [dev-dependencies]
+ bitvec = "0.17.3"
+diff --git a/jellyfish-merkle/Cargo.toml b/jellyfish-merkle/Cargo.toml
+index 7d07d08..6099ada 100644
+--- a/jellyfish-merkle/Cargo.toml
++++ b/jellyfish-merkle/Cargo.toml
+@@ -21,10 +21,10 @@ proptest-derive = { version = "0.1.2", optional = true }
+ serde = { version = "1.0.105", features = ["derive"] }
+ thiserror = "1.0"
+ 
+-libra-crypto = { path = "../../crypto/crypto", version = "0.1.0" }
+-libra-crypto-derive = { path = "../../crypto/crypto-derive", version = "0.1.0" }
+-libra-nibble = { path = "../../common/nibble", version = "0.1.0" }
+-libra-types = { path = "../../types", version = "0.1.0" }
++libra-crypto = { path = "../crypto", version = "0.1.0" }
++libra-crypto-derive = { path = "../crypto-derive", version = "0.1.0" }
++libra-nibble = { path = "../nibble", version = "0.1.0" }
++libra-types = { path = "../types", version = "0.1.0" }
+ 
+ [dev-dependencies]
+ rand = "0.6.5"
+diff --git a/jellyfish-merkle/src/lib.rs b/jellyfish-merkle/src/lib.rs
+index 04ad871..3b24e60 100644
+--- a/jellyfish-merkle/src/lib.rs
++++ b/jellyfish-merkle/src/lib.rs
+@@ -75,7 +75,7 @@ mod jellyfish_merkle_test;
+ mod mock_tree_store;
+ mod nibble_path;
+ pub mod node_type;
+-pub mod restore;
++// pub mod restore;
+ #[cfg(test)]
+ mod test_helper;
+ mod tree_cache;
+diff --git a/jellyfish-merkle/src/node_type/mod.rs b/jellyfish-merkle/src/node_type/mod.rs
+index 8000186..ac8c7f0 100644
+--- a/jellyfish-merkle/src/node_type/mod.rs
++++ b/jellyfish-merkle/src/node_type/mod.rs
+@@ -597,7 +597,11 @@ impl Node {
+ 
+     /// Returns `true` if the node is a leaf node.
+     pub fn is_leaf(&self) -> bool {
+-        matches!(self, Node::Leaf(_))
++        // matches!(self, Node::Leaf(_))
++        match self {
++            Node::Leaf(_) => true,
++            _ => false,
++        }
+     }
+ 
+     /// Serializes to bytes for physical storage.
+diff --git a/types/Cargo.toml b/types/Cargo.toml
+index 5643db2..641c469 100644
+--- a/types/Cargo.toml
++++ b/types/Cargo.toml
+@@ -27,11 +27,11 @@ serde = { version = "1.0.105", default-features = false }
+ thiserror = "1.0"
+ tiny-keccak = { version = "2.0.1", default-features = false, features = ["sha3"] }
+ 
+-lcs = { path = "../common/lcs", version = "0.1.0", package = "libra-canonical-serialization" }
+-libra-crypto = { path = "../crypto/crypto", version = "0.1.0" }
+-libra-crypto-derive = { path = "../crypto/crypto-derive", version = "0.1.0" }
+-libra-proptest-helpers = { path = "../common/proptest-helpers", version = "0.1.0", optional = true }
+-move-core-types = { path = "../language/move-core/types", version = "0.1.0" }
++lcs = { path = "../lcs", version = "0.1.0", package = "libra-canonical-serialization" }
++libra-crypto = { path = "../crypto", version = "0.1.0" }
++libra-crypto-derive = { path = "../crypto-derive", version = "0.1.0" }
++libra-proptest-helpers = { path = "../proptest-helpers", version = "0.1.0", optional = true }
++# move-core-types = { path = "../language/move-core/types", version = "0.1.0" }
+ 
+ [build-dependencies]
+ prost-build = "0.6"
+@@ -40,9 +40,9 @@ prost-build = "0.6"
+ regex = "1.3.6"
+ proptest = "0.9.4"
+ proptest-derive = "0.1.2"
+-libra-proptest-helpers = { path = "../common/proptest-helpers", version = "0.1.0" }
+-libra-prost-ext = { path = "../common/prost-ext", version = "0.1.0" }
++libra-proptest-helpers = { path = "../proptest-helpers", version = "0.1.0" }
++# libra-prost-ext = { path = "../common/prost-ext", version = "0.1.0" }
+ 
+ [features]
+ default = []
+-fuzzing = ["proptest", "proptest-derive", "libra-proptest-helpers", "libra-crypto/fuzzing", "move-core-types/fuzzing"]
++fuzzing = ["proptest", "proptest-derive", "libra-proptest-helpers", "libra-crypto/fuzzing"]
