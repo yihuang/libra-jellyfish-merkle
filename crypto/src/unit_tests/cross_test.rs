@@ -7,8 +7,8 @@ use crate as libra_crypto;
 use crate::{
     ed25519::{Ed25519PrivateKey, Ed25519PublicKey, Ed25519Signature},
     multi_ed25519::{MultiEd25519PrivateKey, MultiEd25519PublicKey, MultiEd25519Signature},
+    test_utils::uniform_keypair_strategy,
     traits::*,
-    unit_tests::uniform_keypair_strategy,
 };
 
 use crate::hash::HashValue;
