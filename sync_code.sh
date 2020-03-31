@@ -13,4 +13,3 @@ mkdir -p types/src
 rsync -rv --delete $LIBRA_PATH/types/src/proto/ types/src/proto/
 cp $LIBRA_PATH/types/build.rs types/
 cp $LIBRA_PATH/types/Cargo.toml types/
-# git apply -3 ./patch.diff

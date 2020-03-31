@@ -1,9 +1,3 @@
-commit 82296ba926b35eef8a60e31e89693d136d8b1a4b
-Author: yihuang <yi.codeplayer@gmail.com>
-Date:   Tue Mar 31 12:37:45 2020 +0800
-
-    build
-
 diff --git a/crypto/Cargo.toml b/crypto/Cargo.toml
 index 522a466..8bb87f1 100644
 --- a/crypto/Cargo.toml
